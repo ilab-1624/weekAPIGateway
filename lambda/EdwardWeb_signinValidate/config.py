@@ -1,9 +1,9 @@
 aws_access_key_id = 'aws key'
 aws_secret_access_key = 'aws secert key'
 region_name = 'your region'
-sourceBucketName = 'your bucket day'
+sourceBucketName = 'ai-big-data-system-20210523'
 
-collectionId = "your face collectionId"
+collectionId = "API_Gateway_Class"
 
 USER_POOL_ID = 'your userpool id'
 
