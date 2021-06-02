@@ -1,6 +1,6 @@
 aws_access_key_id = 'aws key'
 aws_secret_access_key = 'aws secert key'
-region_name = 'us-west-2'
+region_name = 'your region'
 sourceBucketName = 'your bucket day'
 
 collectionId = "your face collectionId"
