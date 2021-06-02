@@ -7,6 +7,6 @@ collectionId = "your face collectionId"
 
 USER_POOL_ID = 'your userpool id'
 
-groupName = 'your manager Group'
+groupName = 'manager_EdwardWeb'
 
 attributeList = ['sub', 'email', 'picture', 'custom:faceId', 'custom:lineId'] 
