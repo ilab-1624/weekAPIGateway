@@ -37,7 +37,7 @@ def lambda_handler(event, context):
             noquataMessage.formate_quota()
             receiverLineIdList , messages = noquataMessage.getdata()
             
-            response = client.invoke(FunctionName='cloud9-tsp2NoQuotaAlert-tsp2NoQuotaAlert-npOYXNQC5Yxd',
+            response = client.invoke(FunctionName=config.ARN,
                      InvocationType='RequestResponse',
                      Payload=json.dumps({
                         "receiverLineIdList":receiverLineIdList,
@@ -66,7 +66,7 @@ def lambda_handler(event, context):
             noquataMessage.formate_quota()
             receiverLineIdList , messages = noquataMessage.getdata()
 
-            response = client.invoke(FunctionName='cloud9-tsp2NoQuotaAlert-tsp2NoQuotaAlert-npOYXNQC5Yxd',
+            response = client.invoke(FunctionName=config.ARN,
                      InvocationType='RequestResponse',
                      Payload=json.dumps({
                         "receiverLineIdList":receiverLineIdList,
