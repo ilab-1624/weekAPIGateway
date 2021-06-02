@@ -1,0 +1,16 @@
+{
+  "Comment": "secomV4SigninValidate",
+  "StartAt": "signinValidate",
+  "States": {
+    "signinValidate": {
+      "Type": "Task",
+      "Resource": "",
+      "Next": "alertNotify"
+    },
+    "alertNotify": {
+      "Type": "Task",
+      "Resource": "",
+      "End": true
+    }
+  }
+}
