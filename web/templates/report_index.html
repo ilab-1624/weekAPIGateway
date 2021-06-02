@@ -1,0 +1,154 @@
+{% extends "mobileLayout.html" %}
+
+{% block title %}報表首頁{% endblock %}
+
+{% block bodyContent %}
+<br>
+<br>
+<br>
+<form align="center" method="POST" action="/object_detection_report">
+	<div id="dataid" d="{{user}}" style="display:none"></div>
+	<input type='text' name='name' value = '{{user}}' style="display:none">
+	<button type='submit'>物件偵測統計報表</button>
+	<!-- <button class="button" id="objectDetectionReportButton" type="submit">物件</button> -->
+
+</form>
+
+<br>
+<br>
+<form align="center" method="POST" action="/face_recognition_report">
+	<div id="dataid" d="{{user}}" style="display:none"></div>
+	<input type='text' name='name' value = '{{user}}' style="display:none">
+	<button type='submit'>成員簽到統計報表</button>
+	<!-- <button class="button" id="objectDetectionReportButton" type="submit">物件</button> -->
+
+</form>
+<br>
+<br>
+<form align="center" method="POST" action="/ppe_detection_report">
+	<div id="dataid" d="{{user}}" style="display:none"></div>
+	<input type='text' name='name' value = '{{user}}' style="display:none">
+	<button type='submit'>工安查驗統計報表</button>
+	<!-- <button class="button" id="objectDetectionReportButton" type="submit">物件</button> -->
+
+</form>
+<br>
+<br>
+<form align="center" method="POST" action="/fraud_detection_report">
+	<div id="dataid" d="{{user}}" style="display:none"></div>
+	<input type='text' name='name' value = '{{user}}' style="display:none">
+	<button type='submit'>異常偵測統計報表</button>
+	<!-- <button class="button" id="objectDetectionReportButton" type="submit">物件</button> -->
+
+</form>
+
+
+
+
+<script>
+	// var js_data = document.getElementById('dataid').getAttribute('d');
+	// //    var userinfo ='{{postjson}}';
+	// console.log(js_data)
+	// // alert(js_data);
+	// var btnName = 'btnNameValue';
+	// //    var agentName = 'agentNameValue';
+	// function myFunction() {
+	// 	$.ajax({
+	// 		url: "/test",
+	// 		data: js_data,
+	// 		type: 'POST',
+	// 		//    dataType: "json",
+	// 		//    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+	// 		success: function (response) {
+	// 			console.log('success');
+	// 			alert('test');
+	// 			window.open('http://www.google.com');
+	// 		},
+	// 		error: function (error) {
+	// 			alert('error')
+	// 			console.log(error);
+
+	// 		}
+	// 	});
+	// }
+
+
+
+
+
+
+
+
+
+	// var uerinfo = '{{userinfo}}'
+	// console.log(uerinfo)
+	// var js_data = document.getElementById('dataid').getAttribute('d');
+	// console.log(js_data)
+	// // alert(js_data);
+	// function objectDetection() {
+	// 	$.ajax({
+	// 		url: "/test",
+	// 		data: js_data,
+	// 		type: 'POST',
+	// 		dataType: "json",
+	// 		success: function (response) {
+	// 			alert('success')
+	// 			console.log('success');
+	// 			// console.log(userinfo.name)
+	// 			// windows.location.href = "/object_detection_report";
+	// 		},
+	// 		error: function (error) {
+	// 			console.log(error);
+	// 		}
+	// 	});
+	// }
+	// function faceRecognion() {
+	// 	$.ajax({
+	// 		url: "/face_recognition_report",
+	// 		data: js_data,
+	// 		type: 'POST',
+	// 		dataType: "json",
+	// 		success: function (response) {
+	// 			console.log('success');
+	// 			// console.log(userinfo.name)
+	// 			// windows.location.href = "/object_detection_report";
+	// 		},
+	// 		error: function (error) {
+	// 			console.log(error);
+	// 		}
+	// 	});
+	// }
+	// function ppeDetection() {
+	// 	$.ajax({
+	// 		url: "/ppe_detection_report",
+	// 		data: js_data,
+	// 		type: 'POST',
+	// 		dataType: "json",
+	// 		success: function (response) {
+	// 			console.log('success');
+	// 			// console.log(userinfo.name)
+	// 			// windows.location.href = "/object_detection_report";
+	// 		},
+	// 		error: function (error) {
+	// 			console.log(error);
+	// 		}
+	// 	});
+	// }
+	// function fraudDetection() {
+	// 	$.ajax({
+	// 		url: "/fraud_detection_report",
+	// 		data: js_data,
+	// 		type: 'POST',
+	// 		dataType: "json",
+	// 		success: function (response) {
+	// 			console.log('success');
+	// 			// console.log(userinfo.name)
+	// 			// windows.location.href = "/object_detection_report";
+	// 		},
+	// 		error: function (error) {
+	// 			console.log(error);
+	// 		}
+	// 	});
+	// }
+</script>
+{% endblock %}

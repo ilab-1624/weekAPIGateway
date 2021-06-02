@@ -1,0 +1,172 @@
+{% extends "mobileLayout.html" %}
+
+{% block title %}成員註冊{% endblock %}
+
+{% block headContent %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper@1.7.0/dist/css/bs-stepper.min.css">
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bs-stepper@1.7.0/dist/js/bs-stepper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/herrjemand/Base64URL-ArrayBuffer@latest/lib/base64url-arraybuffer.js"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.890.0.min.js"></script>
+<script src="{{url_for('static', filename='js/register.js')}}"></script>
+<script src="{{url_for('static', filename='js/fido.js')}}"></script>
+<script src="{{url_for('static', filename='js/face.js')}}"></script>
+{% endblock %}
+
+{% block bodyContent %}
+<form class="container" method="POST" name="createUser" enctype = "multipart/form-data">
+	<div class="bs-stepper">
+		<div class="bs-stepper-header" role="tablist">
+			<div class="step" data-target="#step1">
+				<button type="button" class="step-trigger" role="tab"></button>
+			</div>
+			<div class="step" data-target="#step2">
+				<button type="button" class="step-trigger" role="tab"></button>
+			</div>
+			<div class="step" data-target="#step3">
+				<button type="button" class="step-trigger" role="tab"></button>
+			</div>
+			<div class="step" data-target="#step4">
+				<button type="button" class="step-trigger" role="tab"></button>
+			</div>
+		</div>
+		
+		<div class="bs-stepper-content">
+			<div id="step1" class="content" role="tabpanel">
+				<div style="text-align:center">
+					<h3 style="color:dodgerblue">步驟 1. 帳號註冊</h3>
+				</div>
+				<br>
+				<div class="form-group">
+					<label>姓名</label>
+					<input type="text" name="username" id="username" class="form-control" placeholder="username" required="required"/>
+				</div>
+				<div class="form-group">
+					<label>密碼</label>
+					<input type="password" name="password" id="password" class="form-control" placeholder="password" required="required"/>
+				</div>
+				<div class="form-group">
+					<label>email</label>
+					<input type="email" name="email" id="email" class="form-control" placeholder="email" required="required"/>
+				</div>
+				<div class="form-group">
+					<label>LINE暱稱</label>
+					<input type="text" name="lineNickname" id="lineNickname" class="form-control" placeholder="LINE nickname" required="required"/>
+				</div>
+				<div class="form-group">
+					<label>角色</label><br>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="role" id="customer-radio" value="customer" checked>
+						<label class="form-check-label" for="customer-radio">成員</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="role" id="staff-radio" value="staff">
+						<label class="form-check-label" for="staff-radio">工程師</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="role" id="manager-radio" value="manager">
+						<label class="form-check-label" for="manager-radio">管理員</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>經銷商:&nbsp;&nbsp;{{ agent }}</label>
+				</div>
+				<div style="text-align:center">
+					<button type="button" id="step1-nextBtn" class="btn btn-success" onclick="accountRegister()">下一步</button>
+				</div>
+			</div>
+			<div id="step2" class="content" role="tabpanel">
+				<div style="text-align:center">
+					<h3 style="color:dodgerblue">步驟 2. 生物綁定</h3>
+				</div>
+				<br><br>
+				<div style="text-align:center">
+					<button type="button" id="fingerPrintBtn" class="btn btn-danger" onclick="createCredential()">綁定</button>
+				</div>
+				<br><br>
+				<div style="text-align:center">
+					<button type="button" id="step2-nextBtn" class="btn btn-success" onclick="stepper.next()" disabled="disabled">下一步</button>
+				</div>
+			</div>
+			<div id="step3" class="content" role="tabpanel">
+				<div style="text-align:center">
+					<h3 style="color:dodgerblue">步驟 3. 人臉綁定</h3>
+				</div>
+				<br>
+				<div style="margin:auto 10%">
+					<input type="file" id="imgFile" name="imgFile" onchange="showImg(this)" class="form-control" accept="image/jpeg, image/png" required="required"/><br>
+				</div>
+				<div style="text-align:center">
+					<img id="faceImg" src="" width="60%"/><br><br>
+				</div>
+				<div style="text-align:center">
+					<button type="button" id="step3-nextBtn" class="btn btn-success" onclick="faceRegister()">下一步</button>
+				</div>
+			</div>
+			<div id="step4" class="content" role="tabpanel">
+				<div style="text-align:center">
+					<h3 style="color:dodgerblue">步驟 4. LINE群組綁定</h3>
+				</div>
+				<br>
+				<div class="alert alert-success">
+					step1：下載此QR Code至手機<br>
+					step2：開啟LINE掃描剛下載的QR Code<br>
+					step3：點擊加入群組完成綁定<br>
+					step4：加入群組中的智能簽到機器人以便收到通知<br>
+					step5：回到此頁面並點擊 "註冊"<br>
+				</div>
+				<div style="text-align:center">
+					<img src="static/images/GroupQRCode.jpg" alt="ChatBot QR Code" width="60%"><br><br>
+				</div>
+				<div style="text-align:center">
+					<button type="submit" class="btn btn-success">註冊</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<script>
+	const fidoServerUrl = '{{fidoServerUrl}}'
+
+	var stepperElem = document.querySelector('.bs-stepper');
+	var stepper = new Stepper(stepperElem);
+	var done = false;
+	var currStep = 1;
+	history.pushState(currStep, '');
+	
+	stepperElem.addEventListener("show.bs-stepper", function (e) {
+	  if (done) {
+		e.preventDefault();
+		return;
+	  }
+	});
+	
+	stepperElem.addEventListener("shown.bs-stepper", function (e) {
+	  var idx = e.detail.indexStep + 1;
+	  currStep = idx;
+	  
+	  history.pushState(idx, '');
+	})
+	
+	window.onpopstate = function (e) {
+	  if (e.state && e.state != currStep)
+		stepper.to(e.state);
+	};
+	
+	function showImg(thisimg) {
+		var file = thisimg.files[0];
+		if (window.FileReader) {
+			var fr = new FileReader();
+
+			var faceImg = document.getElementById('faceImg');
+			fr.onloadend = function (e) {
+				faceImg.src = e.target.result;
+			};
+			fr.readAsDataURL(file);
+		}
+	}
+</script>
+{% endblock %}
